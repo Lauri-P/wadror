@@ -9,11 +9,25 @@
   <%= "This user has made #{pluralize(@user.ratings.count, 'rating')} with average of #{@user.average_rating}"%>
 </p>
 
+<p>
+	member of
+	<% @user.beer_clubs.each do |club| %>
+		<%= link_to club.name, beer_club_path(club.id) %>
+	<% end %>
+</p>
+
 <ul>
  <% @user.ratings.each do |rating| %>
-   <li> <%= rating %> <%= link_to 'delete', rating_path(rating.id), method: :delete, data: { confirm: 'Are you sure?' } %> </li>
- <% end %>
+   <li>
+		<%= rating %> 
+		<% if @user == current_user %>
+			<%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %>
+		<% end %>
+		</li>
+    <% end %>
 </ul>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<% if @user == current_user %>
+	<%= link_to 'Destroy', user_path, method: :delete, data: { confirm: 'Are you sure?' } %> |
+	<%= link_to 'Edit', edit_user_path(@user) %> |
+<% end %>
 <%= link_to 'Back', users_path %>
