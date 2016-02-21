@@ -1,0 +1,34 @@
+<% if session[:last_search] %>
+
+    <% current_id=place_url.split("/").last %>
+    <% current_place=@places.first %>
+
+    <% @places.each do |place| %>
+      <% if place.id==current_id %>
+        <% current_place=place %>
+        <%break %>
+      <% end %>
+    <% end %>
+
+    <% if current_place %>
+
+      <h2>
+        <%= current_place.name %>
+      </h2>
+
+      <%= current_place.street %>
+      <br>
+      <%= current_place.zip %>
+      <%= current_place.city %>
+      <br>
+
+      <iframe src="<%= current_place.blogmap %>" width="40%" height="400" ></iframe>
+    <% else %>
+
+        Something went wrong
+
+    <% end %>
+
+
+
+<% end %>

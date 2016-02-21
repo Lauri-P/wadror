@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Beer, type: :model do
   it "is not saved without name" do
-    beer = Beer.create style:"beer"
+    beer = Beer.create style:FactoryGirl.create(:style, style:"style2")
 
     expect(beer).not_to be_valid
     expect(Beer.count).to eq(0)
@@ -16,7 +16,7 @@ RSpec.describe Beer, type: :model do
   end
 
   it "is saved with name and style" do
-    beer = Beer.create name:"Beer", style:"beer"
+    beer = Beer.create name:"Beer", style:FactoryGirl.create(:style, style:"style2")
 
     expect(beer).to be_valid
     expect(Beer.count).to eq(1)
