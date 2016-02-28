@@ -1,0 +1,12 @@
+<table class="table table-hover">
+
+  <tbody>
+  <% listables.each do |list_thing| %>
+      <tr>
+        <td><%= link_to list_thing.to_s, list_thing %></td>
+        <td><%=  round(list_thing.average_rating) %></td>
+        <td></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

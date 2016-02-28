@@ -18,17 +18,17 @@ FactoryGirl.define do
     year 1900
   end
 
-  factory :style do
-    style "Lager"
-  end
-
   factory :beer do
     name "anonymous"
     brewery
+    style
+  end
+
+  factory :style do
     unless Style.all.first
-      style
+      style "Lager"
     else
-      style=Style.all.first
+      Style.all.first
     end
 
   end

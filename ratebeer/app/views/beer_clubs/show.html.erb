@@ -22,14 +22,14 @@
 
         <% @membership=Membership.all.where(user_id:current_user.id, beer_club_id:@beer_club.id).first %>
         <%= form_for(@membership, method: "delete") do |f| %>
-            <%= f.submit value: "end the membership" %>
+            <%= f.submit value: "end the membership", class:"btn btn-danger" %>
         <% end %>
     <% else %>
 
         <%= form_for(@membership) do |f| %>
             <%= f.hidden_field :beer_club_id %>
             <%= f.hidden_field :user_id %>
-            <%= f.submit value: "join the club" %>
+            <%= f.submit value: "join the club", class:"btn btn-success" %>
 
         <% end %>
     <% end %>
@@ -43,5 +43,5 @@
   <% end %>
 </ul>
 
-<%= link_to 'Edit', edit_beer_club_path(@beer_club) %> |
-<%= link_to 'Back', beer_clubs_path %>
+<%= link_to 'Edit', edit_beer_club_path(@beer_club), class:"btn btn-warning" %> |
+<%= link_to 'Back', beer_clubs_path, class:"btn btn-info" %>

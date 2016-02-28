@@ -8,4 +8,16 @@ module Helpers
   end
 
   ENV['APIKEY']="cd72f2c73f934ac32034074ec13d6f6d"
+
+  def create_beer_with_rating(user, style, brewery, score)
+    beer = FactoryGirl.create(:beer, style: style, brewery: brewery)
+    FactoryGirl.create(:rating, score:score, beer:beer, user:user)
+    beer
+  end
+
+  def create_beers_with_ratings(user, style, brewery, *scores)
+    scores.each do |score|
+      create_beer_with_rating(user, style, brewery, score)
+    end
+  end
 end

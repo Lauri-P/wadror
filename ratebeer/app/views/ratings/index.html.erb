@@ -2,12 +2,31 @@
 
 <p> Number of ratings: <%= @ratings.count %> </p>
 
+<p> Recent ratings </p>
 <ul>
- <% @ratings.each do |rating| %>
+ <% @recent.each do |rating| %>
    <li> <%= rating %> <%= link_to rating.user.username, rating.user %> </li>
  <% end %>
 </ul>
 
+<br>
+
+<p> Top 3 beers </p>
+<%= render 'toplist', listables: @top_beers %>
+<br>
+
+<p> Top 3 breweries </p>
+<%= render 'toplist', listables: @top_breweries %>
+<br>
+
+<p> Top 3 users </p>
+<%= render 'toplist', listables: @top_users %>
+<br>
+
+<p> Top 3 styles </p>
+<%= render 'toplist', listables: @top_styles %>
+<br>
+
 <% if current_user %>
-<%= link_to 'New rating', new_rating_path %>
+<%= link_to 'New rating', new_rating_path, class:"btn btn-success" %>
 <% end %>

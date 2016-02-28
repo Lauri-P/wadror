@@ -5,12 +5,17 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by username: params[:username]
-      if user && user.authenticate(params[:password])
+    if user && user.authenticate(params[:password])
+      if not user.freezed
         session[:user_id] = user.id
         redirect_to user_path(user), notice: "Welcome back, #{params[:username]}!"
       else
-        redirect_to :back, notice: "Username and/or password mismatch"
+        redirect_to :back, notice: "Your account is freezed. Please contact admin"
       end
+
+    else
+      redirect_to :back, notice: "Username and/or password mismatch"
+    end
   end
 
   def destroy

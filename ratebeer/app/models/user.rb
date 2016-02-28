@@ -31,6 +31,18 @@ class User < ActiveRecord::Base
 
 	def favorite_brewery
 		return nil if ratings.empty?
-		highest_average(ratings.map{|r| [r.beer.brewery.name, r.score]})
+		highest_average(ratings.map{|r| [r.beer.brewery, r.score]})
 	end
+
+	def to_s
+		"#{username}"
+	end
+
+	def self.top(n)
+		sorted_by_rating_in_desc_order = User.all.sort_by{ |b| -(b.ratings.count||0) }
+		sorted_by_rating_in_desc_order[0..n-1]
+		# palauta listalta parhaat n kappaletta
+		# miten? ks. http://www.ruby-doc.org/core-2.1.0/Array.html
+	end
+
 end

@@ -5,41 +5,53 @@
   <%= @user.username %>
 </p>
 
+
+
+<% if current_user and current_user.admin  %>
+
+    <% if @user.freezed  %>
+        <span class="label label-info">freezed</span>
+    <% end %>
+
+    <%= link_to "#{@user.freezed? ? "reactivate" : "freeze"} account", toggle_freezed_user_path(@user.id), method: :post, class: "btn btn-warning" %>
+<% end %>
+
+
 <p>
-  <%= "This user has made #{pluralize(@user.ratings.count, 'rating')} with average of #{@user.average_rating}"%>
+  <%= "This user has made #{pluralize(@user.ratings.count, 'rating')} with average of #{round(@user.average_rating)}"%>
 </p>
 
 <%if @user.favorite_style%>
-  <p>
-    <%= "Favorite style: #{@user.favorite_style.style}"%>
-  </p>
+    <p>
+      <%= "Favorite style: #{@user.favorite_style.style}"%>
+    </p>
 <% end %>
 
 <%if @user.favorite_brewery%>
-  <p>
-    <%= "Favorite brewery: #{@user.favorite_brewery}" %>
-  </p>
+    <p>
+      <%= "Favorite brewery: #{@user.favorite_brewery.name}" %>
+    </p>
 <% end %>
 
 <p>
-	member of
-	<% @user.beer_clubs.each do |club| %>
-		<%= link_to club.name, beer_club_path(club.id) %>
-	<% end %>
+  member of
+  <% @user.beer_clubs.each do |club| %>
+      <%= link_to club.name, beer_club_path(club.id) %>
+  <% end %>
 </p>
 
 <ul>
- <% @user.ratings.each do |rating| %>
-   <li>
-		<%= rating %> 
-		<% if @user == current_user %>
-			<%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %>
-		<% end %>
-		</li>
-    <% end %>
+  <% @user.ratings.each do |rating| %>
+      <li>
+        <%= rating %>
+        <% if @user == current_user %>
+            <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger btn-sm' %>
+        <% end %>
+      </li>
+  <% end %>
 </ul>
 <% if @user == current_user %>
-	<%= link_to 'Destroy', user_path, method: :delete, data: { confirm: 'Are you sure?' } %> |
-	<%= link_to 'Edit', edit_user_path(@user) %> |
+    <%= link_to 'Destroy', user_path, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger btn-sm' %> |
+    <%= link_to 'Edit', edit_user_path(@user), class:"btn btn-warning" %> |
 <% end %>
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', users_path, class:"btn btn-info" %>

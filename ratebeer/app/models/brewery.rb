@@ -8,7 +8,10 @@ class Brewery < ActiveRecord::Base
 	
 	has_many :beers, dependent: :destroy
 	has_many :ratings, through: :beers
-	
+
+	scope :active, -> { where active:true }
+	scope :retired, -> { where active:[nil,false] }
+
 	def print_report
 		puts name
 		puts "established at year #{year}"
@@ -25,6 +28,17 @@ class Brewery < ActiveRecord::Base
 		if year>Time.now.year
 			errors.add(:year, "can't be future year")
 		end
+	end
+
+	def self.top(n)
+		sorted_by_rating_in_desc_order = Brewery.all.sort_by{ |b| -(b.average_rating||0) }
+		sorted_by_rating_in_desc_order[0..n-1]
+		# palauta listalta parhaat n kappaletta
+		# miten? ks. http://www.ruby-doc.org/core-2.1.0/Array.html
+	end
+
+	def to_s
+		"#{name}"
 	end
 	
 	#def average_rating
