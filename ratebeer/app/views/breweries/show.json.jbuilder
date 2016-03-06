@@ -1,1 +1,3 @@
-json.extract! @brewery, :id, :name, :year, :created_at, :updated_at
+json.array!(@breweries) do |brewery|
+  json.extract! brewery, :id, :name, :year
+end

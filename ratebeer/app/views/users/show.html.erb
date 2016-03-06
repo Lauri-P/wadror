@@ -34,9 +34,20 @@
 <% end %>
 
 <p>
-  member of
+  member of<br>
   <% @user.beer_clubs.each do |club| %>
-      <%= link_to club.name, beer_club_path(club.id) %>
+      <% if club.memberships.find_by(user_id:@user.id).confirmed? %>
+          <%= link_to club.name, beer_club_path(club.id) %>
+      <% end %>
+  <% end %>
+</p>
+
+<p>
+  applied membership of<br>
+  <% @user.beer_clubs.each do |club| %>
+      <% unless club.memberships.find_by(user_id:@user.id).confirmed? %>
+          <%= link_to club.name, beer_club_path(club.id) %>
+      <% end %>
   <% end %>
 </p>
 

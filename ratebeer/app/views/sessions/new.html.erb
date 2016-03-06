@@ -5,3 +5,6 @@
   password <%= password_field_tag :password, params[:password] %>
   <%= submit_tag "Log in" %>
 <% end %>
+
+<br>
+Or <%= link_to "Sign in with Github", session_path('auth/github'), class: "btn btn-primary" %>

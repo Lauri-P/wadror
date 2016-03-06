@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<% cache @beer do %>
 <p>
   <strong>Name:</strong>
   <%= @beer.name %>
@@ -22,6 +22,8 @@
  <%= "This beer has #{pluralize(@beer.ratings.count, 'rating')}. Average: #{round(@beer.average_rating)}"%>
 <% end %>
 </p>
+<% end %>
+
 
 <% if current_user %>
 

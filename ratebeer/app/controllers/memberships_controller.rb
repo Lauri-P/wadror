@@ -61,6 +61,13 @@ class MembershipsController < ApplicationController
     end
   end
 
+  def confirm_membership
+    membership = Membership.find(params[:id])
+    membership.update_attribute :confirmed, true
+
+    redirect_to :back, notice:"membership confirmed"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_membership

@@ -92,3 +92,13 @@ gem 'bootstrap-sass'
 group :development do
   gem 'rails_layout'
 end
+
+gem 'jquery-turbolinks'
+
+group :test do
+gem 'selenium-webdriver'
+gem 'database_cleaner'
+end
+
+gem 'rack-mini-profiler'
+gem 'omniauth-github'

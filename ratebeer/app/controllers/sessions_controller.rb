@@ -24,4 +24,9 @@ class SessionsController < ApplicationController
     # uudelleenohjataan sovellus pääsivulle
     redirect_to :root
   end
+
+  def create_oauth
+
+  end
+
 end

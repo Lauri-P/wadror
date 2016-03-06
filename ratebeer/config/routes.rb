@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   resources :users do
     post 'toggle_freezed', on: :member
   end
+
+  resources :memberships do
+    post 'confirm_membership', on: :member
+  end
+
   root 'breweries#index'
   get 'kaikki_bisset', to: 'beers#index'
   #get 'ratings', to: 'ratings#index'
@@ -21,6 +26,10 @@ Rails.application.routes.draw do
   delete 'signout', to: 'sessions#destroy'
   get 'places', to: 'places#index'
   post 'places', to:'places#search'
+  get 'beerlist', to:'beers#list'
+  get 'ngbeerlist', to:'beers#nglist'
+  get 'brewerylist', to:'breweries#list'
+  get 'auth/:provider/callback', to: 'sessions#create_oauth'
 
   
   
